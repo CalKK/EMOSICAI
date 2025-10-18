@@ -1,0 +1,20 @@
+# EMOSIC AI - Requirements
+fastapi==0.95.0
+uvicorn==0.21.1
+pandas==2.0.0
+numpy==1.24.2
+scikit-fuzzy==0.4.2
+python-multipart==0.0.6
+pydantic==1.10.7
+matplotlib==3.7.1
+streamlit==1.25.0  # For the app UI
+altair==5.0.1  # For charts
+
+# RAG Dependencies
+langchain==0.0.354
+chromadb==0.4.18
+sentence-transformers==2.2.2
+transformers==4.35.2
+accelerate==0.24.1
+bitsandbytes==0.41.1  # Optional for quantization
+torch==2.8.0

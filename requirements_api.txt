@@ -1,0 +1,18 @@
+# requirements_api.txt - Dependencies for FastAPI backend
+# Install with: pip install -r requirements_api.txt
+
+fastapi==0.104.1
+uvicorn[standard]==0.24.0
+pydantic==2.5.0
+
+# CORS support for frontend integration
+python-multipart==0.0.6
+
+# Your existing dependencies
+pandas==2.2.2
+numpy==1.24.3
+scikit-learn==1.3.2
+
+# Optional: For enhanced features
+# redis==5.0.1  # For caching
+# sqlalchemy==2.0.23  # For database persistence
