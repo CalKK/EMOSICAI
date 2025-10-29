@@ -1,9 +1,12 @@
 from fastapi import FastAPI, Query
 from typing import List, Optional
 import pandas as pd
+from pydantic import BaseModel
+from config import DEFAULT_DATA_PATH
+from linear_regression_model import LinearRegressionModel
 
 # Load your dataset
-df = pd.read_csv("data_moods.csv")
+df = pd.read_csv(DEFAULT_DATA_PATH)
 
 # Define mood frames (example, adjust as needed)
 MOOD_FRAMES = {
@@ -19,6 +22,16 @@ TEMPO_FRAMES = {
 }
 
 app = FastAPI()
+
+# Initialize linear regression model
+lr_model = LinearRegressionModel(DEFAULT_DATA_PATH)
+
+# Pydantic models for linear regression
+class PredictMoodRequest(BaseModel):
+    tempo: float
+
+class PredictMoodResponse(BaseModel):
+    predicted_mood: float
 
 def filter_songs(emotion: str, tempo: str):
     # Map emotion to valence range
@@ -46,3 +59,11 @@ def get_recommendations(
     """
     results = filter_songs(emotion, tempo)
     return {"recommendations": results}
+
+@app.post("/predict_mood", response_model=PredictMoodResponse)
+def predict_mood(request: PredictMoodRequest):
+    """
+    Predict mood value based on tempo using linear regression.
+    """
+    predicted = lr_model.predict(request.tempo)
+    return PredictMoodResponse(predicted_mood=predicted)
